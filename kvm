@@ -1,0 +1,62 @@
+create new vm
+
+on last page check "custom configuration"
+
+change firmware to UEFI
+
+add virtio-win-0.1.124.iso to CD drive
+
+add hardware - PCI host device
+GPU 
+GPU audio
+
+remove:
+- video qxl
+- spice video
+
+run: ls -l /dev/disk/by-id
+write down exact ID of disk you want to pass
+
+edit /etc/libvirt/qemu/<vm-name>.xml
+
+ADD: 
+<features>
+    <acpi/>
+    <apic/>
+    <hyperv>
+      <relaxed state='on'/>
+      <vapic state='on'/>
+      <vendor_id state='on' value='drewbie'/>
+    </hyperv>
+    <kvm>
+      <hidden state='on'/>
+    </kvm>
+    <vmport state='off'/>
+</features>
+
+CHANGE VIRTIO DRIVE TO DISK:
+
+ORIGINAL:
+<disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/var/lib/libvirt/images/win.qcow2'/>
+      <target dev='hda' bus='ide'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+</disk>
+
+FINAL:
+<disk type='block' device='disk'>
+      <driver name='qemu' type='raw'/>
+      <source dev='/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S21HNSAG116311Y'/>
+      <target dev='vdd' bus='sata'/>
+ </disk>
+## NOTICE THE <address... LINE HAS BEEN DELETED
+
+CONFIRM CDROM:
+
+
+
+
+
+
+
