@@ -15,3 +15,7 @@ grub changes:
 modprobe changes:
 /etc/modprobe.d/vfio.conf
 `options vfio-pci ids=10de:1401,10de:0fba`
+
+
+to install virtio drivers for hard drive passthrough
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/virtualization_host_configuration_and_guest_installation_guide/form-virtualization_host_configuration_and_guest_installation_guide-para_virtualized_drivers-mounting_the_image_with_virt_manager
